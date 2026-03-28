@@ -102,12 +102,18 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
                 
                 <li class="nav-header">PRINCIPAL</li>
-                
 
                 <li class="nav-item">
-                    <a href="<?= base_url('productos') ?>" class="nav-link">
-                        <i class="fas fa-tags"></i> 
+                    <a href="<?= base_url('productos') ?>" class="nav-link <?= ($this->uri->segment(1) === 'productos') ? 'active' : '' ?>">
+                        <i class="fas fa-tags"></i>
                         <p>Gestión Productos</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="<?= base_url('categorias') ?>" class="nav-link <?= ($this->uri->segment(1) === 'categorias') ? 'active' : '' ?>">
+                        <i class="fas fa-layer-group"></i>
+                        <p>Categorías</p>
                     </a>
                 </li>
 

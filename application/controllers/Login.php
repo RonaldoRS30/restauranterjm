@@ -36,7 +36,7 @@ class Login extends CI_Controller {
                 'rol'             => $user->rol,
             ]);
 
-            redirect('ventas/pos');
+            redirect('productos');
 
         } else {
             log_message('error', 'Login fallido para usuario: ' . $usuario);
