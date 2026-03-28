@@ -13,15 +13,11 @@ class Login extends CI_Controller {
         log_message('debug', 'Login intento. Usuario enviado: ' . $usuario);
         log_message('debug', 'Password (md5) generado: ' . $password);
 
-        // Armamos la consulta
-        $this->db->select('u.*, s.nombre as sucursal_nombre');
-        $this->db->from('usuarios u');
-        $this->db->join('sucursales s', 'u.id_sucursal = s.id');
-        $this->db->where('u.usuario', $usuario);
-        $this->db->where('u.password', $password);
-        $this->db->where('u.estado', 1); // Solo usuarios activos
-
-        $query = $this->db->get();
+        $query = $this->db->get_where('usuarios', [
+            'usuario'  => $usuario,
+            'password' => $password,
+            'estado'   => 1,
+        ]);
 
         // Log de la consulta ejecutada y resultado
         log_message('debug', 'Login SQL: ' . $this->db->last_query());
@@ -38,8 +34,6 @@ class Login extends CI_Controller {
                 'usuario'         => $user->usuario,
                 'nombre_completo' => $user->nombre,
                 'rol'             => $user->rol,
-                'id_sucursal'     => $user->id_sucursal,
-                'sucursal_nombre' => $user->sucursal_nombre
             ]);
 
             redirect('ventas/pos');

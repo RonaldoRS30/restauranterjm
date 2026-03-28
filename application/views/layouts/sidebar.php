@@ -103,50 +103,6 @@
                 
                 <li class="nav-header">PRINCIPAL</li>
                 
-                <li class="nav-item">
-                    <a href="<?= base_url('ventas/pos') ?>" class="nav-link">
-                        <i class="fas fa-cash-register"></i>
-                        <p>Punto de Venta</p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="<?= base_url('clientes/cliente_index') ?>" class="nav-link">
-                        <i class="fas fa-user-friends"></i>
-                        <p>Clientes</p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="<?= base_url('proveedores/proveedor_index') ?>" class="nav-link">
-                        <i class="fas fa-truck-loading"></i>
-                        <p>Proveedores</p>
-                    </a>
-                </li>
-
-                <?php if ($this->session->userdata('rol') == 'admin'): ?>
-                <li class="nav-header">ADMINISTRACIÓN</li>
-
-                <li class="nav-item">
-                    <a href="<?= base_url('ventas/venta_index') ?>" class="nav-link">
-                        <i class="fas fa-chart-bar"></i>
-                        <p>Ventas Realizadas</p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="<?= base_url('compras/compras_index') ?>" class="nav-link">
-                        <i class="fas fa-shopping-basket"></i>
-                        <p>Compras e Inventario</p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="<?= base_url('almacen/stock_index') ?>" class="nav-link">
-                        <i class="fas fa-layer-group"></i>
-                        <p>Stock Almacén</p>
-                    </a>
-                </li>
 
                 <li class="nav-item">
                     <a href="<?= base_url('productos') ?>" class="nav-link">
@@ -154,24 +110,6 @@
                         <p>Gestión Productos</p>
                     </a>
                 </li>
-
-                <li class="nav-item">
-                    <a href="<?= base_url('caja') ?>" class="nav-link">
-                        <i class="fas fa-vault"></i>
-                        <p>Control de Cajas</p>
-                    </a>
-                </li>
-                <?php endif; ?>
-
-                <?php if ($this->session->userdata('rol') == 'vendedor'): ?>
-                <li class="nav-header">COTIZACIONES</li>
-                <li class="nav-item">
-                    <a href="<?= base_url('ventas_bolivia/nueva_cotizacion') ?>" class="nav-link">
-                        <i class="fas fa-file-invoice"></i> 
-                        <p>Nueva Cotización</p>
-                    </a>
-                </li>
-                <?php endif; ?>
 
                 <li class="nav-item">
                     <a href="<?= base_url('login/cerrar') ?>" class="nav-link nav-logout">
