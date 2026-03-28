@@ -104,6 +104,20 @@
                 <li class="nav-header">PRINCIPAL</li>
 
                 <li class="nav-item">
+                    <a href="<?= base_url('ventas/pos') ?>" class="nav-link <?= ($this->uri->segment(1) === 'ventas' && $this->uri->segment(2) === 'pos') ? 'active' : '' ?>">
+                        <i class="fas fa-cash-register"></i>
+                        <p>Punto de venta</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="<?= base_url('ventas/comandas') ?>" class="nav-link <?= ($this->uri->segment(1) === 'ventas' && $this->uri->segment(2) === 'comandas') ? 'active' : '' ?>">
+                        <i class="fas fa-receipt"></i>
+                        <p>Comandas del día</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="<?= base_url('productos') ?>" class="nav-link <?= ($this->uri->segment(1) === 'productos') ? 'active' : '' ?>">
                         <i class="fas fa-tags"></i>
                         <p>Gestión Productos</p>

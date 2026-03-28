@@ -10,14 +10,24 @@
             </div>
         <?php endif; ?>
 
-        <header class="mb-10 border-b border-slate-200 pb-6">
+        <header class="mb-8 border-b border-slate-200 pb-6">
             <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Productos</p>
             <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Base por categoría</h1>
             <p class="text-sm text-slate-500 mt-2 max-w-2xl">
-                Elige una categoría para entrar a su módulo. Cada una podrá tener lógica distinta (listados, formularios, reglas).
-                Las categorías y sus logos se administran en <strong>Categorías</strong>.
+                Categorías activas con paginación. Entra a cada una para el CRUD de productos (búsqueda, edición, precios costo/venta y stock).
+                Administra logos y títulos en <strong>Categorías</strong>.
             </p>
         </header>
+
+        <form method="get" action="<?= site_url('productos') ?>" class="mb-8 flex flex-col sm:flex-row gap-3 sm:items-end max-w-xl">
+            <div class="flex-1">
+                <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Buscar categoría</label>
+                <input type="search" name="q" value="<?= html_escape(isset($q) ? $q : '') ?>"
+                       class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm"
+                       placeholder="Título o slug…">
+            </div>
+            <button type="submit" class="rounded-xl bg-slate-900 px-5 py-2.5 text-sm font-bold text-white">Buscar</button>
+        </form>
 
         <?php if (empty($categorias)): ?>
             <div class="rounded-2xl border-2 border-dashed border-slate-200 bg-white px-8 py-16 text-center">
@@ -59,6 +69,9 @@
                     </a>
                 <?php endforeach; ?>
             </div>
+            <?php if (!empty($pagination_links)): ?>
+                <?= $pagination_links ?>
+            <?php endif; ?>
         <?php endif; ?>
     </div>
 </div>

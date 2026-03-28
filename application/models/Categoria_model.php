@@ -10,6 +10,49 @@ class Categoria_model extends CI_Model {
         return $this->db->order_by('id', 'DESC')->get($this->table)->result();
     }
 
+    public function count_busqueda($q = '')
+    {
+        $this->_like_titulo_slug($q);
+        return (int) $this->db->count_all_results($this->table);
+    }
+
+    public function get_paginado($limit, $offset, $q = '')
+    {
+        $this->_like_titulo_slug($q);
+        return $this->db->order_by('id', 'DESC')
+            ->limit((int) $limit, (int) $offset)
+            ->get($this->table)
+            ->result();
+    }
+
+    private function _like_titulo_slug($q)
+    {
+        $q = trim((string) $q);
+        if ($q !== '') {
+            $this->db->group_start()
+                ->like('titulo', $q)
+                ->or_like('slug', $q)
+            ->group_end();
+        }
+    }
+
+    public function count_activas_busqueda($q = '')
+    {
+        $this->db->where('estado', 1);
+        $this->_like_titulo_slug($q);
+        return (int) $this->db->count_all_results($this->table);
+    }
+
+    public function get_activas_paginado($limit, $offset, $q = '')
+    {
+        $this->db->where('estado', 1);
+        $this->_like_titulo_slug($q);
+        return $this->db->order_by('titulo', 'ASC')
+            ->limit((int) $limit, (int) $offset)
+            ->get($this->table)
+            ->result();
+    }
+
     public function get_activas()
     {
         return $this->db->where('estado', 1)

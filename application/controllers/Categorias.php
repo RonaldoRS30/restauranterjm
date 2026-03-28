@@ -3,6 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Categorias extends CI_Controller {
 
+    private $per_page = 10;
+
     public function __construct()
     {
         parent::__construct();
@@ -16,8 +18,52 @@ class Categorias extends CI_Controller {
 
     public function index()
     {
-        $data['categorias'] = $this->categoria_model->get_all();
+        $q = trim((string) $this->input->get('q', true));
+        $page = (int) $this->input->get('page');
+        if ($page < 1) {
+            $page = 1;
+        }
+        $offset = ($page - 1) * $this->per_page;
+        $total = $this->categoria_model->count_busqueda($q);
+        $data['categorias'] = $this->categoria_model->get_paginado($this->per_page, $offset, $q);
+        $data['q'] = $q;
+        $data['pagination_links'] = $this->_pagination_links(site_url('categorias'), $total, $this->per_page);
         $this->load->view('categorias/index', $data);
+    }
+
+    private function _pagination_links($base_url, $total_rows, $per_page)
+    {
+        if ($total_rows <= $per_page) {
+            return '';
+        }
+        $this->load->library('pagination');
+        $config = [
+            'base_url'             => $base_url,
+            'total_rows'           => $total_rows,
+            'per_page'             => $per_page,
+            'page_query_string'    => true,
+            'query_string_segment' => 'page',
+            'use_page_numbers'     => true,
+            'reuse_query_string'   => true,
+            'num_links'            => 4,
+            'full_tag_open'        => '<nav class="flex flex-wrap justify-center items-center gap-2 mt-8" aria-label="Paginación">',
+            'full_tag_close'       => '</nav>',
+            'first_tag_open'       => '<span class="inline-flex">',
+            'first_tag_close'      => '</span>',
+            'last_tag_open'        => '<span class="inline-flex">',
+            'last_tag_close'       => '</span>',
+            'cur_tag_open'         => '<span class="inline-flex items-center px-3 py-2 rounded-xl bg-slate-900 text-white text-sm font-bold">',
+            'cur_tag_close'        => '</span>',
+            'num_tag_open'         => '<span class="inline-flex">',
+            'num_tag_close'        => '</span>',
+            'prev_tag_open'        => '<span class="inline-flex">',
+            'prev_tag_close'       => '</span>',
+            'next_tag_open'        => '<span class="inline-flex">',
+            'next_tag_close'       => '</span>',
+            'attributes'           => ['class' => 'inline-flex items-center px-3 py-2 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 hover:bg-slate-50 transition'],
+        ];
+        $this->pagination->initialize($config);
+        return $this->pagination->create_links();
     }
 
     public function crear()

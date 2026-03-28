@@ -19,7 +19,7 @@
             <div>
                 <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Catálogo</p>
                 <h1 class="text-2xl font-black text-slate-900 tracking-tight">Categorías</h1>
-                <p class="text-sm text-slate-500 mt-1">Título y logo por categoría; se muestran como tarjetas en Productos.</p>
+                <p class="text-sm text-slate-500 mt-1">Listado paginado con búsqueda. Título y logo se usan en Productos y en el POS.</p>
             </div>
             <a href="<?= site_url('categorias/crear') ?>"
                class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-slate-900/20 hover:bg-slate-800 transition">
@@ -27,6 +27,16 @@
                 Nueva categoría
             </a>
         </header>
+
+        <form method="get" action="<?= site_url('categorias') ?>" class="mb-6 flex flex-col sm:flex-row gap-3 sm:items-end max-w-xl">
+            <div class="flex-1">
+                <label class="block text-[10px] font-bold uppercase text-slate-400 mb-1">Buscar</label>
+                <input type="search" name="q" value="<?= html_escape(isset($q) ? $q : '') ?>"
+                       class="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm"
+                       placeholder="Título o slug…">
+            </div>
+            <button type="submit" class="rounded-xl bg-white border border-slate-200 px-5 py-2.5 text-sm font-bold text-slate-700 hover:bg-slate-50">Buscar</button>
+        </form>
 
         <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
             <div class="overflow-x-auto">
@@ -93,6 +103,9 @@
                     </tbody>
                 </table>
             </div>
+            <?php if (!empty($pagination_links)): ?>
+                <?= $pagination_links ?>
+            <?php endif; ?>
         </div>
     </div>
 </div>
